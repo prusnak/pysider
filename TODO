@@ -1,0 +1,37 @@
+* rewrite to more intelligent python script :-)
+
+* package names:
+  -python-qt4
+  +python-pyside
+  -python-qt4-devel
+  +python-pyside-devel
+
+* QFileDialog methods:
+  -foo = QFileDialog.getExistingDirectory(
+  +foo, _ = QFileDialog.getExistingDirectory(
+  -foo = QFileDialog.getSaveFileName(
+  +foo, _ = QFileDialog.getSaveFileName(
+
+* setFocus method:
+  -foo.setFocus()
+  +foo.setFocus(Qt.FocusReason.MouseFocusReason)
+  -foo.setFocus(True)
+  +foo.setFocus(Qt.FocusReason.MouseFocusReason)
+
+* setCaseSensitivity method:
+  -foo.setCaseSensitivity(False)
+  +foo.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+
+* setMargin method:
+  -foo.setMargin(bar)
+  +foo.setContentsMargins(bar, bar, bar, bar)
+
+* QString usage:
+  -QString(foo)
+  +(foo)
+
+* QVariant usage:
+  -QVariant(foo)
+  +QVariant(foo)
+  -QVariant(0, False)
+  +None
