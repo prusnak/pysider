@@ -1,0 +1,50 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+  echo "Usage: pysider project_directory"
+  exit 1
+fi
+
+PRJDIR="$1"
+
+if [ ! -d "$PRJDIR" ]; then
+  echo "\"$PRJDIR\" is not a valid project directory"
+  exit 2
+fi
+
+echo
+echo "Adjusting sources ..."
+echo
+
+find "$PRJDIR" -name '*.py' -print | while read f; do
+  sed -e 's/ PyQt4/ PySide/g' \
+      -e 's/pyqtSignal/Signal/g' \
+      -e 's/pyqtSlot/Slot/g' \
+      -e 's/pyqtProperty/Property/g' \
+      -i "$f"
+done
+
+echo
+echo "Adjusting build files ..."
+echo
+
+find "$PRJDIR" -name '[Mm]akefile*' -o -name '*.py' -print | while read f; do
+  sed -e 's/pyuic4/pyside-uic/' \
+      -e 's/pyrcc4/pyside-rcc/' \
+      -e 's/pylupdate4/pyside-lupdate/' \
+      -i "$f"
+done
+
+echo
+echo "Checking for PyQt's API 1 usage ..."
+echo
+
+cd "$PRJDIR"
+if grep -Rn -e 'QString\|QVariant\|QStringList\|QFileDialog\|QChar\|QStringRef\|QLatin1Char\|QLatin1String\|QStringMatcher' ; then
+  echo
+  echo "See http://qt-project.org/wiki/Differences_Between_PySide_and_PyQt for more info how to deal with these ..."
+fi
+cd - > /dev/null
+
+echo
+echo "Conversion done."
+echo

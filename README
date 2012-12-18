@@ -1,0 +1,9 @@
+PySider
+=======
+
+Simple utility to convert your PyQt4 applications to PySide.
+
+I recommend using it in cooperation with git or other VCS to see the results.
+
+See http://qt-project.org/wiki/Differences_Between_PySide_and_PyQt for more info.
+
