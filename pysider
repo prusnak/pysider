@@ -39,7 +39,7 @@ echo "Checking for PyQt's API 1 usage ..."
 echo
 
 cd "$PRJDIR"
-if grep -Rn -e 'QString\|QVariant\|QStringList\|QFileDialog\|QChar\|QStringRef\|QLatin1Char\|QLatin1String\|QStringMatcher' ; then
+if grep -Rn -e 'QString\|QVariant\|QStringList\|QFileDialog\|QChar\|QStringRef\|QLatin1Char\|QLatin1String\|QStringMatcher' . ; then
   echo
   echo "See http://qt-project.org/wiki/Differences_Between_PySide_and_PyQt for more info how to deal with these ..."
 fi
